@@ -1,38 +1,20 @@
-# .github/workflows/npm-publish.yml
-name: Publish Node.js package
+name: Publish (GitHub Packages)
 
 on:
   release:
     types: [created]
-
-permissions:
-  contents: read
+  workflow_dispatch: {}   # lets you click “Run workflow” without making a release
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      # Use `ci` only if you have a package-lock.json
+          registry-url: https://npm.pkg.github.com/
       - run: npm ci || npm install
-      - run: npm test --if-present
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org/'
-          cache: 'npm'
-      - run: npm ci || npm install
-      # For scoped packages (e.g. @smmv/yourpkg) add: --access public
-      - run: npm publish --provenance
+      - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

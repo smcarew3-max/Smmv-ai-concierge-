@@ -1,1 +1,6 @@
-{ "name": "@smcarew3-max/smmv-ai-concierge", "version": "0.1.0", "main": "server.js" }
+{
+  "name": "@smcarew3-max/smmv-ai-concierge",
+  "version": "0.1.0",
+  "main": "server.js",
+  "license": "MIT"
+}

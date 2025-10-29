@@ -1,0 +1,12 @@
+# .github/workflows/hello.yml
+name: Hello (test)
+on:
+  workflow_dispatch: {}    # shows the Run button
+  push:
+    branches: [main]       # runs on any new commit to main
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Actions are enabled ✅"
